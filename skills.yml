@@ -1,0 +1,340 @@
+# Kỹ năng. Mỗi nguyên tố đúng 3 kỹ năng (slot 1-3): 1 = cơ bản, 2 = nâng cao, 3 = tuyệt kỹ.
+# type: PROJECTILE | AOE_SELF | AOE_TARGET | STRIKE_TARGET | DASH | SHIELD | HEAL_AREA
+# damage: sát thương gốc (cấp kỹ năng 1)   cooldown: giây   range/radius: block   duration: giây   power: sức mạnh riêng (khiên/hồi máu/lực lướt)
+# per-level-bonus: +% hiệu quả mỗi cấp kỹ năng    upgrade-cost: điểm kỹ năng cho lần nâng đầu (lần sau nhân theo cấp hiện tại)
+# particle: tên Particle (không cần dữ liệu thêm)   sound: key âm thanh vanilla
+# effects (tùy chọn): burn-seconds, slow-seconds, slow-amplifier, freeze-ticks, root-seconds, knockback, lift, pull,
+#   pierce, splash-damage-ratio, repeat, interval-ticks, delay-ticks, lightning-visual, hostile-only, heal-allies,
+#   heal-others, undead-multiplier, resistance-seconds, resistance-amplifier, self-slow-amplifier, slow-falling-seconds
+skills:
+  # ------------------------------------------------------------------ HỎA
+  fire_fireball:
+    element: FIRE
+    slot: 1
+    name: "Hỏa Cầu"
+    icon: FIRE_CHARGE
+    description: ["&7Bắn quả cầu lửa, nổ lan khi chạm."]
+    type: PROJECTILE
+    unlock-level: 1
+    cooldown: 6
+    damage: 7.0
+    range: 24
+    radius: 2.5
+    max-level: 5
+    per-level-bonus: 0.12
+    upgrade-cost: 1
+    particle: FLAME
+    sound: "entity.blaze.shoot"
+    effects: { burn-seconds: 3, knockback: 0.3, splash-damage-ratio: 0.5 }
+  fire_blaze:
+    element: FIRE
+    slot: 2
+    name: "Bùng Cháy"
+    icon: MAGMA_BLOCK
+    description: ["&7Bùng nổ ngọn lửa quanh người, thiêu đốt kẻ địch."]
+    type: AOE_SELF
+    unlock-level: 10
+    cooldown: 14
+    damage: 6.0
+    radius: 5
+    max-level: 5
+    per-level-bonus: 0.12
+    upgrade-cost: 1
+    particle: FLAME
+    sound: "item.firecharge.use"
+    effects: { burn-seconds: 4, knockback: 0.8 }
+  fire_inferno:
+    element: FIRE
+    slot: 3
+    name: "Thiên Hỏa"
+    icon: MAGMA_CREAM
+    description: ["&7Triệu hồi thiên thạch lửa giáng xuống điểm nhắm."]
+    type: AOE_TARGET
+    ultimate: true
+    unlock-level: 30
+    cooldown: 90
+    damage: 18.0
+    range: 30
+    radius: 6
+    max-level: 5
+    per-level-bonus: 0.10
+    upgrade-cost: 2
+    particle: FLAME
+    sound: "entity.generic.explode"
+    effects: { burn-seconds: 6, knockback: 1.0, delay-ticks: 20 }
+
+  # ------------------------------------------------------------------ BĂNG
+  ice_arrow:
+    element: ICE
+    slot: 1
+    name: "Băng Tiễn"
+    icon: SNOWBALL
+    description: ["&7Mũi tên băng làm chậm mục tiêu."]
+    type: PROJECTILE
+    unlock-level: 1
+    cooldown: 5
+    damage: 6.0
+    range: 28
+    radius: 0
+    max-level: 5
+    per-level-bonus: 0.12
+    upgrade-cost: 1
+    particle: SNOWFLAKE
+    sound: "entity.snowball.throw"
+    effects: { slow-seconds: 3, slow-amplifier: 1, freeze-ticks: 100 }
+  ice_frost:
+    element: ICE
+    slot: 2
+    name: "Sương Giá"
+    icon: POWDER_SNOW_BUCKET
+    description: ["&7Làn sương lạnh quanh người làm chậm mọi kẻ địch."]
+    type: AOE_SELF
+    unlock-level: 10
+    cooldown: 15
+    damage: 4.0
+    radius: 6
+    max-level: 5
+    per-level-bonus: 0.12
+    upgrade-cost: 1
+    particle: SNOWFLAKE
+    sound: "block.glass.break"
+    effects: { slow-seconds: 4, slow-amplifier: 2, freeze-ticks: 120 }
+  ice_prison:
+    element: ICE
+    slot: 3
+    name: "Băng Ngục"
+    icon: PACKED_ICE
+    description: ["&7Đóng băng và trói chặt kẻ địch tại điểm nhắm."]
+    type: AOE_TARGET
+    ultimate: true
+    unlock-level: 30
+    cooldown: 80
+    damage: 10.0
+    range: 24
+    radius: 4
+    max-level: 5
+    per-level-bonus: 0.10
+    upgrade-cost: 2
+    particle: SNOWFLAKE
+    sound: "block.glass.break"
+    effects: { root-seconds: 3, freeze-ticks: 140, delay-ticks: 10 }
+
+  # ------------------------------------------------------------------ LÔI
+  lightning_step:
+    element: LIGHTNING
+    slot: 1
+    name: "Lôi Bộ"
+    icon: GOLDEN_BOOTS
+    description: ["&7Lướt như tia chớp, gây sát thương nhẹ ở điểm đến."]
+    type: DASH
+    unlock-level: 1
+    cooldown: 8
+    damage: 4.0
+    radius: 2.5
+    power: 1.7
+    max-level: 5
+    per-level-bonus: 0.12
+    upgrade-cost: 1
+    particle: ELECTRIC_SPARK
+    sound: "entity.lightning_bolt.thunder"
+    effects: { }
+  lightning_strike:
+    element: LIGHTNING
+    slot: 2
+    name: "Sét Đánh"
+    icon: LIGHTNING_ROD
+    description: ["&7Giáng sét lên mục tiêu đang nhắm, làm choáng ngắn."]
+    type: STRIKE_TARGET
+    unlock-level: 10
+    cooldown: 18
+    damage: 14.0
+    range: 28
+    max-level: 5
+    per-level-bonus: 0.12
+    upgrade-cost: 1
+    particle: ELECTRIC_SPARK
+    sound: "entity.lightning_bolt.impact"
+    effects: { root-seconds: 0.6, lightning-visual: 1 }
+  lightning_heaven:
+    element: LIGHTNING
+    slot: 3
+    name: "Thiên Lôi"
+    icon: TRIDENT
+    description: ["&7Bão sét liên hồi giáng xuống vùng nhắm."]
+    type: AOE_TARGET
+    ultimate: true
+    unlock-level: 30
+    cooldown: 100
+    damage: 8.0
+    range: 30
+    radius: 5
+    max-level: 5
+    per-level-bonus: 0.10
+    upgrade-cost: 2
+    particle: ELECTRIC_SPARK
+    sound: "entity.lightning_bolt.thunder"
+    effects: { repeat: 5, interval-ticks: 12, lightning-visual: 1, delay-ticks: 8 }
+
+  # ------------------------------------------------------------------ THỔ
+  earth_armor:
+    element: EARTH
+    slot: 1
+    name: "Thạch Giáp"
+    icon: STONE
+    description: ["&7Phủ giáp đá, hấp thụ sát thương trong thời gian ngắn."]
+    type: SHIELD
+    unlock-level: 1
+    cooldown: 20
+    power: 8.0
+    duration: 8
+    max-level: 5
+    per-level-bonus: 0.15
+    upgrade-cost: 1
+    particle: CRIT
+    sound: "block.stone.place"
+    effects: { }
+  earth_quake:
+    element: EARTH
+    slot: 2
+    name: "Địa Chấn"
+    icon: DIRT
+    description: ["&7Dậm đất tạo chấn động, hất tung kẻ địch."]
+    type: AOE_SELF
+    unlock-level: 10
+    cooldown: 16
+    damage: 7.0
+    radius: 5
+    max-level: 5
+    per-level-bonus: 0.12
+    upgrade-cost: 1
+    particle: CRIT
+    sound: "entity.generic.explode"
+    effects: { lift: 0.7, slow-seconds: 2, slow-amplifier: 1 }
+  earth_fortress:
+    element: EARTH
+    slot: 3
+    name: "Pháo Đài"
+    icon: OBSIDIAN
+    description: ["&7Hóa thành pháo đài: khiên lớn và giảm sát thương, đổi lại di chuyển chậm."]
+    type: SHIELD
+    ultimate: true
+    unlock-level: 30
+    cooldown: 100
+    power: 16.0
+    duration: 10
+    max-level: 5
+    per-level-bonus: 0.10
+    upgrade-cost: 2
+    particle: CRIT
+    sound: "block.anvil.place"
+    effects: { resistance-seconds: 10, resistance-amplifier: 1, self-slow-amplifier: 1 }
+
+  # ------------------------------------------------------------------ PHONG
+  wind_step:
+    element: WIND
+    slot: 1
+    name: "Phong Bộ"
+    icon: ELYTRA
+    description: ["&7Lướt theo gió, rơi chậm sau khi lướt."]
+    type: DASH
+    unlock-level: 1
+    cooldown: 7
+    damage: 0
+    radius: 0
+    power: 1.9
+    max-level: 5
+    per-level-bonus: 0.10
+    upgrade-cost: 1
+    particle: CLOUD
+    sound: "entity.phantom.flap"
+    effects: { slow-falling-seconds: 3 }
+  wind_blade:
+    element: WIND
+    slot: 2
+    name: "Lưỡi Gió"
+    icon: IRON_SWORD
+    description: ["&7Lưỡi gió xuyên qua tối đa 3 mục tiêu trên đường bay."]
+    type: PROJECTILE
+    unlock-level: 10
+    cooldown: 8
+    damage: 6.0
+    range: 20
+    radius: 0
+    max-level: 5
+    per-level-bonus: 0.12
+    upgrade-cost: 1
+    particle: CLOUD
+    sound: "entity.player.attack.sweep"
+    effects: { pierce: 2, knockback: 0.6 }
+  wind_cyclone:
+    element: WIND
+    slot: 3
+    name: "Lốc Xoáy"
+    icon: WIND_CHARGE
+    description: ["&7Cơn lốc hút kẻ địch vào tâm và tung lên không trung."]
+    type: AOE_SELF
+    ultimate: true
+    unlock-level: 30
+    cooldown: 85
+    damage: 5.0
+    radius: 7
+    max-level: 5
+    per-level-bonus: 0.10
+    upgrade-cost: 2
+    particle: CLOUD
+    sound: "entity.breeze.wind_burst"
+    effects: { pull: 1.0, lift: 0.5, repeat: 4, interval-ticks: 10 }
+
+  # ------------------------------------------------------------------ QUANG
+  light_shield:
+    element: LIGHT
+    slot: 1
+    name: "Quang Thuẫn"
+    icon: SHIELD
+    description: ["&7Tấm khiên ánh sáng hấp thụ sát thương."]
+    type: SHIELD
+    unlock-level: 1
+    cooldown: 16
+    power: 6.0
+    duration: 8
+    max-level: 5
+    per-level-bonus: 0.15
+    upgrade-cost: 1
+    particle: END_ROD
+    sound: "block.beacon.activate"
+    effects: { }
+  light_heal:
+    element: LIGHT
+    slot: 2
+    name: "Ánh Sáng Phục Hồi"
+    icon: GOLDEN_APPLE
+    description: ["&7Hồi máu cho bản thân và người chơi xung quanh."]
+    type: HEAL_AREA
+    unlock-level: 10
+    cooldown: 20
+    power: 8.0
+    radius: 6
+    max-level: 5
+    per-level-bonus: 0.12
+    upgrade-cost: 1
+    particle: HEART
+    sound: "block.amethyst_block.chime"
+    effects: { heal-others: 1 }
+  light_holy:
+    element: LIGHT
+    slot: 3
+    name: "Thánh Quang"
+    icon: NETHER_STAR
+    description: ["&7Thanh tẩy bóng tối: gây sát thương lớn lên quái thù địch (đặc biệt xác sống) và hồi máu đồng đội."]
+    type: AOE_SELF
+    ultimate: true
+    unlock-level: 30
+    cooldown: 110
+    damage: 12.0
+    radius: 8
+    max-level: 5
+    per-level-bonus: 0.10
+    upgrade-cost: 2
+    particle: END_ROD
+    sound: "block.beacon.power_select"
+    effects: { hostile-only: 1, undead-multiplier: 1.5, heal-allies: 10 }

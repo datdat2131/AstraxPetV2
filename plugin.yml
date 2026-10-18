@@ -1,0 +1,60 @@
+name: AstraxElementer
+version: ${project.version}
+main: com.astrax.elementer.ElementerCore
+api-version: '1.21'
+author: Astrax
+description: Elemental RPG System cho server BoxMine RPG
+commands:
+  elementer:
+    description: Menu và thông tin nguyên tố
+    usage: /<command> [info|skills|stats|top|cast|select|awaken]
+    aliases: [nguyento]
+  elementeradmin:
+    description: Quản trị AstraxElementer
+    usage: /<command> <reload|give|set|reset>
+    aliases: [eadmin]
+permissions:
+  elementer.command.main:
+    description: Mở menu /elementer
+    default: true
+  elementer.command.info:
+    description: /elementer info
+    default: true
+  elementer.command.skills:
+    description: /elementer skills
+    default: true
+  elementer.command.stats:
+    description: /elementer stats
+    default: true
+  elementer.command.top:
+    description: /elementer top
+    default: true
+  elementer.command.cast:
+    description: Tung kỹ năng (lệnh /elementer cast và phím F)
+    default: true
+  elementer.command.select:
+    description: Chọn kỹ năng
+    default: true
+  elementer.command.awaken:
+    description: Thức tỉnh nguyên tố
+    default: true
+  elementer.admin.reload:
+    description: /elementeradmin reload
+    default: op
+  elementer.admin.give:
+    description: /elementeradmin give
+    default: op
+  elementer.admin.set:
+    description: /elementeradmin set
+    default: op
+  elementer.admin.reset:
+    description: /elementeradmin reset
+    default: op
+  elementer.admin.*:
+    description: Toàn bộ quyền quản trị
+    default: op
+    children:
+      elementer.admin.reload: true
+      elementer.admin.give: true
+      elementer.admin.set: true
+      elementer.admin.reset: true

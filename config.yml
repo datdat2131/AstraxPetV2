@@ -1,0 +1,113 @@
+# AstraxElementer - cấu hình chính
+database:
+  type: sqlite          # Bản 1.0 chỉ hỗ trợ sqlite (mysql: dự kiến giai đoạn 2, hiện sẽ tự dùng sqlite)
+  sqlite-file: data.db
+
+save-interval-seconds: 300
+disabled-worlds: []     # thế giới không dùng được kỹ năng / không nhận EXP
+
+input:
+  swap-key-cast: true   # Phím F (đổi tay) = tung kỹ năng đang chọn; Shift+F = đổi kỹ năng
+
+awaken:
+  allow-change: false   # cho phép người chơi tự đổi nguyên tố đã thức tỉnh
+  confirm-seconds: 8    # thời gian xác nhận khi bấm chọn nguyên tố
+
+exp:
+  max-level: 50
+  base: 100             # EXP cần cho cấp 1 -> 2
+  growth: 1.12          # mỗi cấp cần nhiều hơn 12%
+  skill-points-per-level: 1
+  daily-cap: 20000      # giới hạn EXP nhận được mỗi ngày (UTC) từ nguồn tự động, 0 = tắt
+  multiplier: 1.0
+  show-gain-actionbar: true
+  sources:
+    mining:
+      enabled: true
+      ignore-placed-blocks: true   # khối do người chơi đặt không cho EXP
+      blocks:
+        COAL_ORE: 3
+        DEEPSLATE_COAL_ORE: 4
+        COPPER_ORE: 3
+        DEEPSLATE_COPPER_ORE: 4
+        IRON_ORE: 5
+        DEEPSLATE_IRON_ORE: 6
+        GOLD_ORE: 8
+        DEEPSLATE_GOLD_ORE: 9
+        REDSTONE_ORE: 4
+        DEEPSLATE_REDSTONE_ORE: 5
+        LAPIS_ORE: 6
+        DEEPSLATE_LAPIS_ORE: 7
+        DIAMOND_ORE: 20
+        DEEPSLATE_DIAMOND_ORE: 24
+        EMERALD_ORE: 20
+        DEEPSLATE_EMERALD_ORE: 24
+        NETHER_QUARTZ_ORE: 4
+        NETHER_GOLD_ORE: 4
+        ANCIENT_DEBRIS: 40
+    mob-kill:
+      enabled: true
+      ignore-spawner-mobs: true    # quái từ spawner/trứng/golem tự dựng không cho EXP
+      default: 4                   # EXP cho quái thù địch không liệt kê
+      mobs:
+        ZOMBIE: 5
+        SKELETON: 5
+        SPIDER: 5
+        CREEPER: 7
+        ENDERMAN: 12
+        BLAZE: 14
+        WITHER_SKELETON: 18
+        GHAST: 20
+        WARDEN: 400
+        ELDER_GUARDIAN: 200
+        ENDER_DRAGON: 1500
+        WITHER: 1200
+    pvp-kill:
+      enabled: true
+      exp: 30
+      same-victim-cooldown-seconds: 600
+      max-level-difference: 15     # không có EXP nếu nạn nhân thấp hơn bạn quá số cấp này
+      ignore-same-ip: true
+
+# Phần thưởng mốc cấp: mỗi mốc chỉ nhận MỘT LẦN cho mỗi người chơi (kể cả khi reset).
+# Lệnh chạy bằng console. %player% = tên người chơi, %level% = cấp mốc.
+level-rewards:
+  10:
+    message: "&aĐạt cấp 10 - nhận phần thưởng khởi đầu!"
+    commands:
+      - "give %player% iron_ingot 16"
+  25:
+    message: "&aĐạt cấp 25 - nhận phần thưởng!"
+    commands:
+      - "give %player% diamond 8"
+  50:
+    message: "&6Đạt cấp tối đa - nhận phần thưởng lớn!"
+    commands:
+      - "give %player% netherite_ingot 2"
+
+combat:
+  pvp-enabled: true
+  pvp-damage-multiplier: 0.6      # sát thương kỹ năng lên người chơi = 60%
+  max-skill-damage: 40.0          # trần sát thương của MỘT lần trúng
+  affinity-min: 0.5
+  affinity-max: 1.5
+  global-cooldown-ms: 700         # hồi chiêu chung giữa các kỹ năng (chống spam)
+  max-targets-per-cast: 8
+  max-control-seconds: 4.0        # trần thời gian khống chế (làm chậm/trói)
+  control-immunity-seconds: 6.0   # miễn nhiễm trói sau khi bị trói
+  max-knockback: 1.6
+  max-dash-power: 2.2
+  max-shield: 40.0
+  max-shield-seconds: 15.0
+  max-heal: 30.0
+  max-burn-seconds: 10.0
+  cooldown-reduction-per-level: 0.03   # giảm hồi chiêu mỗi cấp kỹ năng
+  max-cooldown-reduction: 0.3
+  min-cooldown-seconds: 1.0
+  protected-types:                # không bao giờ bị kỹ năng gây hại
+    - VILLAGER
+    - WANDERING_TRADER
+    - ARMOR_STAND
+
+effects:
+  particles: true

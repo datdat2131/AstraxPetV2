@@ -1,0 +1,121 @@
+# Định nghĩa 6 nguyên tố. Mọi chỉ số tăng theo cấp dùng công thức: base + per-level * (cấp - 1)
+# attribute: tên attribute của Minecraft (max_health, attack_damage, armor, movement_speed, attack_speed, knockback_resistance...)
+# operation: ADD_NUMBER | ADD_SCALAR | MULTIPLY_SCALAR_1
+elements:
+  FIRE:
+    name: "Hỏa"
+    symbol: "🔥"
+    color: "&c"
+    icon: BLAZE_POWDER
+    description:
+      - "&7Sức mạnh thiêu đốt, sát thương cao."
+      - "&7Khắc &bBăng&7, bị &bLôi&7 khắc."
+    damage-per-level: 0.02       # +2% sát thương kỹ năng mỗi cấp
+    attributes:
+      - { attribute: attack_damage, operation: ADD_NUMBER, base: 0.0, per-level: 0.04 }
+    damage-reduction: { FIRE: 0.5, FIRE_TICK: 0.5, LAVA: 0.3, HOT_FLOOR: 0.5 }
+    proc: { type: IGNITE, chance: 0.08, chance-per-level: 0.002, seconds: 3 }
+  ICE:
+    name: "Băng"
+    symbol: "❄"
+    color: "&b"
+    icon: BLUE_ICE
+    description:
+      - "&7Làm chậm và khống chế kẻ địch."
+      - "&7Khắc &fPhong&7, bị &cHỏa&7 khắc."
+    damage-per-level: 0.02
+    attributes:
+      - { attribute: armor, operation: ADD_NUMBER, base: 0.0, per-level: 0.06 }
+    damage-reduction: { FREEZE: 1.0 }
+    proc: { type: SLOW, chance: 0.08, chance-per-level: 0.002, seconds: 2 }
+  LIGHTNING:
+    name: "Lôi"
+    symbol: "⚡"
+    color: "&e"
+    icon: LIGHTNING_ROD
+    description:
+      - "&7Tốc độ và xung điện bùng nổ."
+      - "&7Khắc &cHỏa&7, bị &6Thổ&7 khắc."
+    damage-per-level: 0.02
+    attributes:
+      - { attribute: movement_speed, operation: ADD_SCALAR, base: 0.0, per-level: 0.002 }
+      - { attribute: attack_speed, operation: ADD_SCALAR, base: 0.0, per-level: 0.002 }
+    damage-reduction: { LIGHTNING: 1.0 }
+  EARTH:
+    name: "Thổ"
+    symbol: "⛰"
+    color: "&6"
+    icon: DEEPSLATE
+    description:
+      - "&7Phòng thủ vững chắc, khó bị đẩy lùi."
+      - "&7Khắc &eLôi&7, bị &fPhong&7 khắc."
+    damage-per-level: 0.015
+    attributes:
+      - { attribute: max_health, operation: ADD_NUMBER, base: 0.0, per-level: 0.1 }
+      - { attribute: knockback_resistance, operation: ADD_NUMBER, base: 0.0, per-level: 0.004 }
+    damage-reduction: { CONTACT: 0.5, SUFFOCATION: 0.5 }
+  WIND:
+    name: "Phong"
+    symbol: "🌪"
+    color: "&f"
+    icon: FEATHER
+    description:
+      - "&7Cơ động, xuyên thấu và kiểm soát vị trí."
+      - "&7Khắc &6Thổ&7, bị &bBăng&7 khắc."
+    damage-per-level: 0.02
+    attributes:
+      - { attribute: movement_speed, operation: ADD_SCALAR, base: 0.0, per-level: 0.0015 }
+    damage-reduction: { FALL: 0.6, FLY_INTO_WALL: 0.5 }
+  LIGHT:
+    name: "Quang"
+    symbol: "✦"
+    color: "&e"
+    icon: GLOWSTONE_DUST
+    description:
+      - "&7Hồi phục, bảo hộ và thanh tẩy bóng tối."
+      - "&7Trung lập tương khắc, mạnh hơn trước xác sống."
+    damage-per-level: 0.015
+    undead-bonus: 0.25           # +25% sát thương lên xác sống
+    attributes:
+      - { attribute: max_health, operation: ADD_NUMBER, base: 0.0, per-level: 0.08 }
+    damage-reduction: { WITHER: 0.4, MAGIC: 0.2, POISON: 0.4 }
+
+# Tương khắc vòng tròn: A khắc B => A đánh B nhận strong, B đánh A nhận weak. Quang trung lập.
+affinity:
+  strong-multiplier: 1.25
+  weak-multiplier: 0.85
+  advantages:
+    FIRE: [ICE]
+    ICE: [WIND]
+    WIND: [EARTH]
+    EARTH: [LIGHTNING]
+    LIGHTNING: [FIRE]
+
+# Nguyên tố của quái (để áp dụng tương khắc khi đánh quái)
+mob-elements:
+  BLAZE: FIRE
+  MAGMA_CUBE: FIRE
+  STRAY: ICE
+  SNOW_GOLEM: ICE
+  CREEPER: LIGHTNING
+  IRON_GOLEM: EARTH
+  SILVERFISH: EARTH
+  PHANTOM: WIND
+  VEX: WIND
+  ALLAY: LIGHT
+
+undead:
+  - ZOMBIE
+  - HUSK
+  - DROWNED
+  - ZOMBIE_VILLAGER
+  - ZOMBIFIED_PIGLIN
+  - ZOGLIN
+  - SKELETON
+  - STRAY
+  - BOGGED
+  - WITHER_SKELETON
+  - WITHER
+  - PHANTOM
+  - SKELETON_HORSE
+  - ZOMBIE_HORSE
